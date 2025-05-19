@@ -13,7 +13,7 @@ function drawLinearClock(context) {
         context.font = "14px Arial";
         context.fontWeight = "bold";
         context.fillStyle = "dimgray";
-        context.fillText(i + 1, i * oneHourWidthPx + 5, 20);
+        context.fillText(i, i * oneHourWidthPx + 5, 20);
     }
     context.restore();
 }
