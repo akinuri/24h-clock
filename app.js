@@ -7,11 +7,11 @@ let offsetHours = 0;
 linearClockCanvas.width = oneHourWidthPx * 24;
 linearClockCanvas.height = 200;
 
-drawLinearClock(linearClockContext, offsetHours);
+drawLinearClock(linearClockContext);
 
 let rafHandle = null;
 function draw() {
-    drawLinearClock(linearClockContext, offsetHours);
+    drawLinearClock(linearClockContext);
     rafHandle = requestAnimationFrame(draw);
 }
 
