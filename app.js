@@ -9,9 +9,21 @@ linearClockCanvas.height = 200;
 
 drawLinearClock(linearClockContext, offsetHours);
 
+let rafHandle = null;
+function draw() {
+    drawLinearClock(linearClockContext, offsetHours);
+    rafHandle = requestAnimationFrame(draw);
+}
+
+linearClockCanvas.addEventListener("mouseenter", draw);
+
 linearClockCanvas.addEventListener("wheel", (event) => {
     event.preventDefault();
     let dir = event.deltaY > 0 ? -1 : 1;
     offsetHours += dir;
-    drawLinearClock(linearClockContext, offsetHours);
+});
+
+linearClockCanvas.addEventListener("mouseleave", () => {
+    cancelAnimationFrame(rafHandle);
+    rafHandle = null;
 });
