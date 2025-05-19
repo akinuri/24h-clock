@@ -2,7 +2,7 @@ let linearClockCanvas = document.getElementById("linear-clock");
 let linearClockContext = linearClockCanvas.getContext("2d");
 
 let oneHourWidthPx = 50;
-let offsetHours = 0;
+let offsetPx = 0;
 
 linearClockCanvas.width = oneHourWidthPx * 24;
 linearClockCanvas.height = 200;
@@ -19,9 +19,7 @@ linearClockCanvas.addEventListener("mouseenter", draw);
 
 linearClockCanvas.addEventListener("wheel", (event) => {
     event.preventDefault();
-    let dir = event.deltaY > 0 ? 1 : -1;
-    offsetHours += dir;
-    offsetHours = loop(offsetHours, -24, 24, "close");
+    offsetPx += 25 * Math.sign(event.deltaY) * -1;
 });
 
 linearClockCanvas.addEventListener("mouseleave", () => {
