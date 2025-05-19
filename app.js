@@ -21,6 +21,7 @@ linearClockCanvas.addEventListener("wheel", (event) => {
     event.preventDefault();
     let dir = event.deltaY > 0 ? 1 : -1;
     offsetHours += dir;
+    offsetHours = loop(offsetHours, -24, 24, "close");
 });
 
 linearClockCanvas.addEventListener("mouseleave", () => {
