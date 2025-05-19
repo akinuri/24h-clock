@@ -19,7 +19,7 @@ linearClockCanvas.addEventListener("mouseenter", draw);
 
 linearClockCanvas.addEventListener("wheel", (event) => {
     event.preventDefault();
-    let dir = event.deltaY > 0 ? -1 : 1;
+    let dir = event.deltaY > 0 ? 1 : -1;
     offsetHours += dir;
 });
 

@@ -1,7 +1,7 @@
 function drawLinearClock(context) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.save();
-    context.translate(offsetHours * oneHourWidthPx, 0);
+    context.translate(offsetHours * oneHourWidthPx * -1, 0);
     for (let i = 0; i < 24; i++) {
         context.beginPath();
         context.moveTo(i * oneHourWidthPx + 0.5, 0);
