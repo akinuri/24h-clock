@@ -26,5 +26,18 @@ function drawLinearClock(context) {
         context.fillText(hour, x + 5, 20);
     }
 
+    let date = new Date();
+    let second = date.getSeconds();
+    let secondX = (context.canvas.width / 60) * second;
+    secondX += offsetPx;
+    secondX = loop(secondX, 0, context.canvas.width, "close");
+
+    context.beginPath();
+    context.moveTo(secondX + 0.5, 0);
+    context.lineTo(secondX + 0.5, context.canvas.height);
+    context.strokeStyle = "hsl(0, 100%, 50%, 0.75)";
+    context.lineWidth = 2;
+    context.stroke();
+
     context.restore();
 }
