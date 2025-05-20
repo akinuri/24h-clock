@@ -2,19 +2,10 @@ function drawLinearClock(context) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.save();
 
-    let hourStart = Math.floor(offsetPx / oneHourWidthPx) * -1;
-    hourStart = loop(hourStart, 0, 24, "close");
-
-    let realOffsetPx = offsetPx % oneHourWidthPx;
-    realOffsetPx = loop(realOffsetPx, 0, oneHourWidthPx, "close");
-
-    context.translate(realOffsetPx, 0);
-
-    for (let i = 0; i < 24; i++) {
-        let x = i * oneHourWidthPx;
-
-        let hour = i + hourStart;
-        hour = loop(hour, 0, 24, "close");
+    for (let hour = 0; hour < 24; hour++) {
+        let x = hour * oneHourWidthPx;
+        x += offsetPx;
+        x = loop(x, 0, context.canvas.width, "close");
 
         context.beginPath();
         context.moveTo(x + 0.5, 0);
