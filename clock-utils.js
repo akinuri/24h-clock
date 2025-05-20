@@ -11,14 +11,16 @@ function drawLinearClock(context) {
     context.translate(realOffsetPx, 0);
 
     for (let i = 0; i < 24; i++) {
-        let h = i + hourStart;
-        h = loop(h, 0, 24, "close");
+        let x = i * oneHourWidthPx;
+
+        let hour = i + hourStart;
+        hour = loop(hour, 0, 24, "close");
 
         context.beginPath();
-        context.moveTo(i * oneHourWidthPx + 0.5, 0);
-        context.lineTo(i * oneHourWidthPx + 0.5, context.canvas.height);
+        context.moveTo(x + 0.5, 0);
+        context.lineTo(x + 0.5, context.canvas.height);
         context.strokeStyle = "silver";
-        if (h == 0) {
+        if (hour == 0) {
             context.strokeStyle = "black";
         }
         context.lineWidth = 1;
@@ -27,10 +29,10 @@ function drawLinearClock(context) {
         context.font = "14px Arial";
         context.fontWeight = "bold";
         context.fillStyle = "dimgray";
-        if (h == 0) {
+        if (hour == 0) {
             context.fillStyle = "black";
         }
-        context.fillText(h, i * oneHourWidthPx + 5, 20);
+        context.fillText(hour, x + 5, 20);
     }
 
     context.restore();
