@@ -6,9 +6,7 @@ function drawLinearClock(context) {
     hourStart = loop(hourStart, 0, 24, "close");
 
     let realOffsetPx = offsetPx % oneHourWidthPx;
-    if (realOffsetPx < 0) {
-        realOffsetPx += oneHourWidthPx;
-    }
+    realOffsetPx = loop(realOffsetPx, 0, oneHourWidthPx, "close");
 
     context.translate(realOffsetPx, 0);
 
