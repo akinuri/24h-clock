@@ -7,7 +7,7 @@ function drawLinearClock(context) {
         x += offsetPx;
         x = loop(x, 0, context.canvas.width, "close");
 
-        const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height);
+        const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height / 2);
         gradient.addColorStop(0, "hsla(0, 0%, 50%, 0.5)");
         gradient.addColorStop(1, "hsla(0, 0%, 50%, 0)");
 
@@ -36,7 +36,7 @@ function drawLinearClock(context) {
     secondX += offsetPx;
     secondX = loop(secondX, 0, context.canvas.width, "close");
 
-    const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height);
+    const gradient = context.createLinearGradient(0, context.canvas.height / 3, 0, context.canvas.height);
     gradient.addColorStop(0, "hsla(0, 100%, 50%, 0)");
     gradient.addColorStop(1, "hsla(0, 100%, 50%, 0.5)");
 
