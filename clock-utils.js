@@ -77,13 +77,14 @@ function drawLinearClock(context) {
         }
     }
 
-    let date = new Date();
-    let second = date.getSeconds();
-    let secondX = (context.canvas.width / 60) * second;
-    secondX += offsetPx;
-    secondX = loop(secondX, 0, context.canvas.width, "close");
+    let now = new Date();
 
     secondHand: {
+        let second = now.getSeconds();
+        let secondX = (context.canvas.width / 60) * second;
+        secondX += offsetPx;
+        secondX = loop(secondX, 0, context.canvas.width, "close");
+
         context.save();
         const gradient = context.createLinearGradient(0, context.canvas.height / 3, 0, context.canvas.height);
         gradient.addColorStop(0, "hsl(0, 100%, 50%, 0)");
