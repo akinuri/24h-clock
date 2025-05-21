@@ -23,9 +23,9 @@ function drawLinearClock(context) {
 
         context.font = "14px Arial";
         context.fontWeight = "bold";
-        context.fillStyle = "dimgray";
+        context.fillStyle = "hsl(0, 0%, 0%, 0.5)";
         if (hour == 0) {
-            context.fillStyle = "black";
+            context.fillStyle = "hsl(0, 0%, 0%)";
         }
         context.fillText(hour, x + 5, 20);
     }
