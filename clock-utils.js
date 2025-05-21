@@ -86,15 +86,15 @@ function drawLinearClock(context) {
         secondX = loop(secondX, 0, context.canvas.width, "close");
 
         context.save();
-        const gradient = context.createLinearGradient(0, context.canvas.height / 3, 0, context.canvas.height);
+        const gradient = context.createLinearGradient(0, context.canvas.height * 0.33, 0, context.canvas.height);
         gradient.addColorStop(0, "hsl(0, 100%, 50%, 0)");
         gradient.addColorStop(1, "hsl(0, 100%, 50%, 0.5)");
 
         context.beginPath();
-        context.moveTo(secondX + 0.5, 0);
+        context.moveTo(secondX + 0.5, context.canvas.height * 0.33);
         context.lineTo(secondX + 0.5, context.canvas.height);
         context.strokeStyle = gradient;
-        context.lineWidth = 2;
+        context.lineWidth = 1.5;
         context.stroke();
         context.restore();
     }
