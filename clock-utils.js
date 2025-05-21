@@ -79,6 +79,26 @@ function drawLinearClock(context) {
 
     let now = new Date();
 
+    hourHand: {
+        let hour = now.getHours();
+        let hourX = (context.canvas.width / 24) * hour;
+        hourX += offsetPx;
+        hourX = loop(hourX, 0, context.canvas.width, "close");
+
+        context.save();
+        const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height * 0.66);
+        gradient.addColorStop(0, "hsl(240, 100%, 50%, 0.5)");
+        gradient.addColorStop(1, "hsl(240, 100%, 50%, 0)");
+
+        context.beginPath();
+        context.moveTo(hourX + 0.5, 0);
+        context.lineTo(hourX + 0.5, context.canvas.height * 0.66);
+        context.strokeStyle = gradient;
+        context.lineWidth = 4;
+        context.stroke();
+        context.restore();
+    }
+
     minuteHand: {
         let minute = now.getMinutes();
         let minuteX = (context.canvas.width / 60) * minute;
