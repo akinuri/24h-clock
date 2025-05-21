@@ -2,69 +2,78 @@ function drawLinearClock(context) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.save();
 
-    for (let hour = 0; hour < 24; hour++) {
-        let x = hour * oneHourWidthPx;
-        x += offsetPx;
-        x = loop(x, 0, context.canvas.width, "close");
+    hourMarks: {
+        for (let hour = 0; hour < 24; hour++) {
+            let x = hour * oneHourWidthPx;
+            x += offsetPx;
+            x = loop(x, 0, context.canvas.width, "close");
 
-        const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height / 2);
-        gradient.addColorStop(0, "hsl(0, 0%, 50%, 0.5)");
-        gradient.addColorStop(1, "hsl(0, 0%, 50%, 0)");
+            const gradient = context.createLinearGradient(0, 0, 0, context.canvas.height / 2);
+            gradient.addColorStop(0, "hsl(0, 0%, 50%, 0.5)");
+            gradient.addColorStop(1, "hsl(0, 0%, 50%, 0)");
 
-        context.beginPath();
-        context.moveTo(x + 0.5, 0);
-        context.lineTo(x + 0.5, context.canvas.height);
-        context.strokeStyle = gradient;
-        if (hour == 0) {
-            context.strokeStyle = "hsl(0, 0%, 0%, 0.33)";
+            context.beginPath();
+            context.moveTo(x + 0.5, 0);
+            context.lineTo(x + 0.5, context.canvas.height);
+            context.strokeStyle = gradient;
+            if (hour == 0) {
+                context.strokeStyle = "hsl(0, 0%, 0%, 0.33)";
+            }
+            context.lineWidth = 1;
+            context.stroke();
+
+            context.font = "14px Arial";
+            context.fontWeight = "bold";
+            context.fillStyle = "hsl(0, 0%, 0%, 0.5)";
+            if (hour == 0) {
+                context.fillStyle = "hsl(0, 0%, 0%)";
+            }
+            context.fillText(hour, x + 5, 20);
         }
-        context.lineWidth = 1;
-        context.stroke();
-
-        context.font = "14px Arial";
-        context.fontWeight = "bold";
-        context.fillStyle = "hsl(0, 0%, 0%, 0.5)";
-        if (hour == 0) {
-            context.fillStyle = "hsl(0, 0%, 0%)";
-        }
-        context.fillText(hour, x + 5, 20);
     }
 
-    for (let minute = 0; minute < 60; minute++) {
-        let x = minute * oneMinuteWidthPx;
-        x += offsetPx;
-        x = loop(x, 0, context.canvas.width, "close");
+    minuteMarks: {
+        for (let minute = 0; minute < 60; minute++) {
+            let x = minute * oneMinuteWidthPx;
+            x += offsetPx;
+            x = loop(x, 0, context.canvas.width, "close");
 
-        const gradient = context.createLinearGradient(0, context.canvas.height * 0.9, 0, context.canvas.height);
-        gradient.addColorStop(0, "hsl(0, 0%, 50%, 0)");
-        gradient.addColorStop(1, "hsl(0, 0%, 50%, 0.5)");
-
-        context.save();
-        context.beginPath();
-        context.moveTo(x + 0.5, context.canvas.height * 0.9);
-        context.lineTo(x + 0.5, context.canvas.height);
-        context.strokeStyle = gradient;
-        context.lineWidth = 1;
-        context.stroke();
-        context.restore();
-
-        if (minute % 5 == 0) {
-            const gradient = context.createLinearGradient(0, context.canvas.height * 0.66, 0, context.canvas.height);
+            const gradient = context.createLinearGradient(0, context.canvas.height * 0.9, 0, context.canvas.height);
             gradient.addColorStop(0, "hsl(0, 0%, 50%, 0)");
             gradient.addColorStop(1, "hsl(0, 0%, 50%, 0.5)");
+
             context.save();
             context.beginPath();
-            context.moveTo(x + 0.5, context.canvas.height * 0.66);
+            context.moveTo(x + 0.5, context.canvas.height * 0.9);
             context.lineTo(x + 0.5, context.canvas.height);
             context.strokeStyle = gradient;
             context.lineWidth = 1;
             context.stroke();
             context.restore();
 
-            context.font = "12px Arial";
-            context.fontWeight = "bold";
-            context.fillStyle = "hsl(0, 0%, 0%, 0.4)";
-            context.fillText(minute, x + 5, context.canvas.height * 0.85);
+            if (minute % 5 == 0) {
+                const gradient = context.createLinearGradient(
+                    0,
+                    context.canvas.height * 0.66,
+                    0,
+                    context.canvas.height
+                );
+                gradient.addColorStop(0, "hsl(0, 0%, 50%, 0)");
+                gradient.addColorStop(1, "hsl(0, 0%, 50%, 0.5)");
+                context.save();
+                context.beginPath();
+                context.moveTo(x + 0.5, context.canvas.height * 0.66);
+                context.lineTo(x + 0.5, context.canvas.height);
+                context.strokeStyle = gradient;
+                context.lineWidth = 1;
+                context.stroke();
+                context.restore();
+
+                context.font = "12px Arial";
+                context.fontWeight = "bold";
+                context.fillStyle = "hsl(0, 0%, 0%, 0.4)";
+                context.fillText(minute, x + 5, context.canvas.height * 0.85);
+            }
         }
     }
 
@@ -74,16 +83,20 @@ function drawLinearClock(context) {
     secondX += offsetPx;
     secondX = loop(secondX, 0, context.canvas.width, "close");
 
-    const gradient = context.createLinearGradient(0, context.canvas.height / 3, 0, context.canvas.height);
-    gradient.addColorStop(0, "hsl(0, 100%, 50%, 0)");
-    gradient.addColorStop(1, "hsl(0, 100%, 50%, 0.5)");
+    secondHand: {
+        context.save();
+        const gradient = context.createLinearGradient(0, context.canvas.height / 3, 0, context.canvas.height);
+        gradient.addColorStop(0, "hsl(0, 100%, 50%, 0)");
+        gradient.addColorStop(1, "hsl(0, 100%, 50%, 0.5)");
 
-    context.beginPath();
-    context.moveTo(secondX + 0.5, 0);
-    context.lineTo(secondX + 0.5, context.canvas.height);
-    context.strokeStyle = gradient;
-    context.lineWidth = 2;
-    context.stroke();
+        context.beginPath();
+        context.moveTo(secondX + 0.5, 0);
+        context.lineTo(secondX + 0.5, context.canvas.height);
+        context.strokeStyle = gradient;
+        context.lineWidth = 2;
+        context.stroke();
+        context.restore();
+    }
 
     context.restore();
 }
