@@ -35,18 +35,37 @@ function drawLinearClock(context) {
         x += offsetPx;
         x = loop(x, 0, context.canvas.width, "close");
 
-        const gradient = context.createLinearGradient(0, context.canvas.height / 2, 0, context.canvas.height);
+        const gradient = context.createLinearGradient(0, context.canvas.height * 0.9, 0, context.canvas.height);
         gradient.addColorStop(0, "hsla(0, 0%, 50%, 0)");
         gradient.addColorStop(1, "hsla(0, 0%, 50%, 0.5)");
 
         context.save();
         context.beginPath();
-        context.moveTo(x + 0.5, context.canvas.height / 2);
+        context.moveTo(x + 0.5, context.canvas.height * 0.9);
         context.lineTo(x + 0.5, context.canvas.height);
         context.strokeStyle = gradient;
         context.lineWidth = 1;
         context.stroke();
         context.restore();
+
+        if (minute % 5 == 0) {
+            const gradient = context.createLinearGradient(0, context.canvas.height * 0.66, 0, context.canvas.height);
+            gradient.addColorStop(0, "hsla(0, 0%, 50%, 0)");
+            gradient.addColorStop(1, "hsla(0, 0%, 50%, 0.5)");
+            context.save();
+            context.beginPath();
+            context.moveTo(x + 0.5, context.canvas.height * 0.66);
+            context.lineTo(x + 0.5, context.canvas.height);
+            context.strokeStyle = gradient;
+            context.lineWidth = 1;
+            context.stroke();
+            context.restore();
+
+            context.font = "12px Arial";
+            context.fontWeight = "bold";
+            context.fillStyle = "hsl(0, 0%, 0%, 0.4)";
+            context.fillText(minute, x + 5, context.canvas.height * 0.85);
+        }
     }
 
     let date = new Date();
