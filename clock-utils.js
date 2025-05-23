@@ -3,15 +3,8 @@ function drawLinearClock(context) {
     context.save();
 
     dayBg: {
-        const gradient = context.createLinearGradient(0, 0, context.canvas.width, 0);
-        gradient.addColorStop(0.0, "hsl(240, 50%, 50%, 0.1)");
-        gradient.addColorStop(0.4, "hsl( 60, 50%, 50%, 0.1)");
-        gradient.addColorStop(0.5, "hsl( 60, 50%, 50%, 0.1)");
-        gradient.addColorStop(0.75, "hsl( 60, 50%, 50%, 0.1)");
-        gradient.addColorStop(1.0, "hsl(240, 50%, 50%, 0.1)");
-
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+        let dayGradientCanvas = buildDayGradient(context.canvas.width, context.canvas.height);
+        context.drawImage(dayGradientCanvas, 0, 0, context.canvas.width, context.canvas.height);
     }
 
     hourMarks: {
@@ -152,4 +145,24 @@ function drawLinearClock(context) {
     }
 
     context.restore();
+}
+
+function buildDayGradient(width, height) {
+    let canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    let context = canvas.getContext("2d");
+
+    const gradient = context.createLinearGradient(0, 0, context.canvas.width, 0);
+    gradient.addColorStop(0.0, "hsl(240, 50%, 50%, 0.1)");
+    gradient.addColorStop(0.4, "hsl( 60, 50%, 50%, 0.1)");
+    gradient.addColorStop(0.5, "hsl( 60, 50%, 50%, 0.1)");
+    gradient.addColorStop(0.75, "hsl( 60, 50%, 50%, 0.1)");
+    gradient.addColorStop(1.0, "hsl(240, 50%, 50%, 0.1)");
+
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+
+    return canvas;
 }
