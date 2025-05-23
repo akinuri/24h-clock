@@ -89,7 +89,7 @@ function drawLinearClock(context) {
     let second = now.getSeconds();
 
     hourHand: {
-        let hourX = (context.canvas.width / 24) * (hour + (minute / 60) + (second / 3600));
+        let hourX = (context.canvas.width / 24) * (hour + minute / 60 + second / 3600);
         hourX += offsetPx;
         hourX = loop(hourX, 0, context.canvas.width, "close");
 
@@ -108,7 +108,7 @@ function drawLinearClock(context) {
     }
 
     minuteHand: {
-        let minuteX = (context.canvas.width / 60) * (minute + (second / 60));
+        let minuteX = (context.canvas.width / 60) * (minute + second / 60);
         minuteX += offsetPx;
         minuteX = loop(minuteX, 0, context.canvas.width, "close");
 
