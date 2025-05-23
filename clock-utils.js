@@ -4,6 +4,7 @@ function drawLinearClock(context) {
 
     dayBg: {
         let dayGradientCanvas = buildDayGradient(context.canvas.width, context.canvas.height);
+        dayGradientCanvas = loopCanvas(dayGradientCanvas, offsetPx * -1);
         context.drawImage(dayGradientCanvas, 0, 0, context.canvas.width, context.canvas.height);
     }
 
@@ -165,4 +166,22 @@ function buildDayGradient(width, height) {
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
     return canvas;
+}
+
+function loopCanvas(canvas, offsetX) {
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const loopedCanvas = document.createElement("canvas");
+    loopedCanvas.width = width;
+    loopedCanvas.height = height;
+
+    const ctx = loopedCanvas.getContext("2d");
+
+    offsetX = ((offsetX % width) + width) % width;
+    const rightWidth = width - offsetX;
+    ctx.drawImage(canvas, offsetX, 0, rightWidth, height, 0, 0, rightWidth, height);
+    ctx.drawImage(canvas, 0, 0, offsetX, height, rightWidth, 0, offsetX, height);
+
+    return loopedCanvas;
 }
